@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Pcw</string>
+
+    <!--Clientes -->
+    <string name="Clientes">Clientes</string>
+    <string name="crear_cliente">Crear cliente</string>
+    <string name="anadir_cliente">Escriba nombre</string>
+    <string name="modificar_cliente">Modificar cliente</string>
+
+    <!-- tarjetas -->
+    <string name="Tarjetas">Tarjetas</string>
+    <string name="valor_prestado">Valor prestado:</string>
+    <string name="estado">Estado:</string>
+    <string name="opciones">Opciones</string>
+    <string name="abonos">Abonos</string>
+    <string name="info_tarjeta">Datos tarjeta</string>
+    <string name="valor_total">Valor total:</string>
+    <string name="num_cuotas">N° Cuotas:</string>
+    <string name="num_cuota">N° Cuota</string>
+    <string name="valor_abono">Valor Abono</string>
+    <string name="fecha_abono">Fec Abono</string>
+</resources>
