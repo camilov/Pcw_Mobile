@@ -17,6 +17,8 @@
     <string name="valor_total">Valor total:</string>
     <string name="num_cuotas">N° Cuotas:</string>
     <string name="num_cuota">N° Cuota</string>
+    <string name="num_cuota1">N° Cuota: </string>
+    <string name="valor_abono1">Valor Abono: </string>
     <string name="valor_abono">Valor Abono</string>
     <string name="fecha_abono">Fec Abono</string>
 </resources>

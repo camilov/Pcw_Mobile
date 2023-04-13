@@ -9,42 +9,124 @@
 
     <TableLayout
         android:id="@+id/tlAbonos"
-        android:layout_width="339dp"
-        android:layout_height="281dp"
-        android:layout_marginTop="144dp"
+        android:layout_width="301dp"
+        android:layout_height="271dp"
+        android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.645"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow
-            android:baselineAligned="true">
+        <TableRow android:baselineAligned="true">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:textAlignment="center"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:text="@string/num_cuota" />
+                android:text="@string/num_cuota"
+                android:textAlignment="center" />
 
             <TextView
-                android:text="@string/valor_abono"
                 android:layout_width="30dp"
                 android:layout_column="1"
                 android:layout_weight="1"
-                android:textAlignment="center">
-            </TextView>
+                android:text="@string/valor_abono"
+                android:textAlignment="center"></TextView>
+
             <TextView
-                android:text="@string/fecha_abono"
                 android:layout_width="30dp"
                 android:layout_column="2"
                 android:layout_weight="1"
-                android:textAlignment="center">
-            </TextView>
+                android:text="@string/fecha_abono"
+                android:textAlignment="center"></TextView>
         </TableRow>
     </TableLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:id="@+id/llCuotaAbono"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tlAbonos">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/num_cuota1"
+            android:textSize="15sp"
+            tools:layout_editor_absoluteX="88dp"
+            tools:layout_editor_absoluteY="393dp" />
+
+        <EditText
+            android:id="@+id/etNumCuotaAbonos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="cuota">
+        </EditText>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llCuotaAbono">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/valor_abono1"
+            android:textSize="15sp"
+            tools:layout_editor_absoluteX="88dp"
+            tools:layout_editor_absoluteY="438dp" />
+
+        <EditText
+            android:id="@+id/etValorAbonoAbonos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="abono">
+        </EditText>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_margin="40dp">
+
+        <ImageButton
+            android:id="@+id/btnAddAbono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/ic_add" />
+
+        <ImageButton
+            android:id="@+id/btnEraseAbono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/ic_minus" />
+
+        <ImageButton
+            android:id="@+id/btnEditAbono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_edit" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +136,9 @@
         app:layout_constraintHorizontal_bias="0.918"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tlAbonos"
-        app:srcCompat="@drawable/ic_plus" />
+        app:srcCompat="@drawable/ic_plus" />-->
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
