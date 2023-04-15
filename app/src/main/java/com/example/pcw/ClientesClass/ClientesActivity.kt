@@ -74,20 +74,6 @@ class ClientesActivity : AppCompatActivity() {
         binding.fabAddTask.setOnClickListener { showCreateClientDialog() }
     }
 
-    /*object ServiceBuilder {
-        private val client = OkHttpClient.Builder().build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8000/") //
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-
-        fun<T> buildService(service: Class<T>): T{
-            return retrofit.create(service)
-        }
-    }*/
-
     private fun showModifyClientDialog(clienteSendResponse: ClienteSendResponse){
 
         val dialog =  Dialog(this)

@@ -1,6 +1,8 @@
 package com.example.pcw.AbonosClass
 
 import android.graphics.Color
+import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pcw.Api.ApiService
 import com.example.pcw.Api.ServiceBuilder
@@ -16,6 +19,7 @@ import com.example.pcw.ClienteSendDataResponse
 import com.example.pcw.ClienteSendResponse
 import com.example.pcw.ClientesClass.ClientesActivity
 import com.example.pcw.DataResponse.AbonoItemResponse
+import com.example.pcw.DataResponse.AbonoSendResponse
 import com.example.pcw.DataResponse.AbonosDataResponse
 import com.example.pcw.R
 import com.example.pcw.databinding.ItemAbonosBinding
@@ -41,6 +45,7 @@ class AbonosActivity : AppCompatActivity() {
     private var idTarjeta: Number? = null
     private var idCliente: Number? = null
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ItemAbonosBinding.inflate(layoutInflater)
@@ -56,24 +61,30 @@ class AbonosActivity : AppCompatActivity() {
         Log.d("scord1", "${idTarjeta}")
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun initListeners() {
 
         binding.btnAddAbono.setOnClickListener{addAbono()}
 
         }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun addAbono() {
 
         val currentNumCuota   = binding.etNumCuotaAbonos.text.toString()
         val currentValorAbono = binding.etValorAbonoAbonos.text.toString()
-        val current = Date()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val fechaActual = Date()
+        val fechaFormateada = dateFormat.format(fechaActual)
+        Log.d("scordsito","$fechaFormateada")
+
 
         if(currentNumCuota != null && currentValorAbono != null){
 
             CoroutineScope(Dispatchers.IO).launch {
                 // val myResponse:ApiService = ServiceBuilder.buildService(ApiService::class.java)
                 Log.d("scordsito","$idTarjeta")
-                val abonoData = AbonoItemResponse(ClientesActivity.CREATE_ID,idTarjeta!!,currentNumCuota.toInt(),currentValorAbono.toFloat(),current)
+                val abonoData = AbonoItemResponse(ClientesActivity.CREATE_ID,idTarjeta!!,currentNumCuota.toInt(),currentValorAbono.toFloat(),fechaFormateada)
 
                 servicio.addAbono(abonoData).enqueue(
                     object: Callback<AbonoItemResponse> {
