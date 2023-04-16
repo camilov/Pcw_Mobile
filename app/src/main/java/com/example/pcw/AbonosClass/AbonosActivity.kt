@@ -92,7 +92,7 @@ class AbonosActivity : AppCompatActivity() {
                             call: Call<AbonoItemResponse>,
                             response: Response<AbonoItemResponse>
                         ) {
-                            Toast.makeText(this@AbonosActivity,"Se Añadio abono correctamente",Toast.LENGTH_LONG)
+                            Toast.makeText(this@AbonosActivity,"Se Añadio abono corretamente",Toast.LENGTH_LONG)
                         }
 
                         override fun onFailure(call: Call<AbonoItemResponse>, t: Throwable) {
