@@ -21,4 +21,7 @@
     <string name="valor_abono1">Valor Abono: </string>
     <string name="valor_abono">Valor Abono</string>
     <string name="fecha_abono">Fec Abono</string>
+    <string name="crear_tarjeta">Crear tarjeta</string>
+    <string name="valor_prestado1">Valor prestado</string>
+    <string name="valor_defecto1">Valor defecto</string>
 </resources>

@@ -1,9 +1,13 @@
 package com.example.pcw.TarjetasClass
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pcw.Api.ApiService
@@ -14,10 +18,14 @@ import com.example.pcw.DataResponse.TarjetasDataResponse
 import com.example.pcw.DataResponse.TarjetasItemResponse
 import com.example.pcw.databinding.ItemTarjetasBinding
 import com.example.pcw.Api.ServiceBuilder
+import com.example.pcw.ClienteSendDataResponse
+import com.example.pcw.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -71,11 +79,54 @@ class TarjetasActivity : AppCompatActivity() {
 
         })
 
+        binding.fabAddCard.setOnClickListener { showCreateCardDialog() }
+
         adapterClienteTarjeta = TarjetasAdapter{navigateToDetailClientesTarjeta(it)}
         binding.rvClientesTarjetas .setHasFixedSize(true)
         binding.rvClientesTarjetas.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
         binding.rvClientesTarjetas.adapter = adapterClienteTarjeta
     }
+
+    private fun showCreateCardDialog() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_creacion_tarjeta)
+        val btnAddTarjeta: Button = dialog.findViewById(R.id.btnAddTarjeta)
+        val etValorPrestado: EditText = dialog.findViewById(R.id.etValorPrestado)
+        val etValorDefecto: EditText = dialog.findViewById(R.id.etValorDefecto)
+
+        btnAddTarjeta.setOnClickListener {
+            val currentValorPrestado = etValorPrestado.text.toString()
+            val currentValorDefecto = etValorDefecto.text.toString()
+
+            if(currentValorPrestado != null){
+                CoroutineScope(Dispatchers.IO).launch {
+                    // val myResponse:ApiService = ServiceBuilder.buildService(ApiService::class.java)
+                    val userData = ClienteSendDataResponse(ClientesActivity.CREATE_ID,etTask.text.toString())
+
+                    servicio.addUser(userData).enqueue(
+                        object: Callback<ClienteSendResponse> {
+                            override fun onResponse(
+                                call: Call<ClienteSendResponse>,
+                                response: Response<ClienteSendResponse>
+                            ) {
+                                Toast.makeText(this@TarjetasActivity,"Se Creo tarjeta correctamente",
+                                    Toast.LENGTH_LONG)
+                            }
+
+                            override fun onFailure(call: Call<ClienteSendResponse>, t: Throwable) {
+                                TODO("Not yet implemented")
+                            }
+                        }
+                    )
+                    dialog.dismiss()
+                }
+            }else{
+                Toast.makeText(this@TarjetasActivity,"Tiene que agregar texto", Toast.LENGTH_LONG)
+            }
+        }
+        dialog.show()
+    }
+
     private fun navigateToDetailClientesTarjeta (clienteSendResponse: ClienteSendResponse){
         /*val intent = Intent(this,DetailSuperheroActivity::class.java)
         intent.putExtra(EXTRA_ID,id)

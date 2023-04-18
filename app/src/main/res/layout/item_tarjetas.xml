@@ -8,8 +8,9 @@
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llTodo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/teal_200"
         android:orientation="vertical"
         tools:context=".todoapp.TodoActivity">
@@ -58,19 +59,21 @@
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="16dp"></androidx.recyclerview.widget.RecyclerView>
 
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="525dp"
+        android:gravity="right">
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/fabAddCard"
+            android:layout_width="93dp"
             android:layout_height="wrap_content"
             android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_plus" />
-
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 </FrameLayout>
