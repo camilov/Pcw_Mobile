@@ -73,7 +73,7 @@ class TarjetasActivity : AppCompatActivity() {
 
         adapterClienteTarjeta = TarjetasAdapter{navigateToDetailClientesTarjeta(it)}
         binding.rvClientesTarjetas .setHasFixedSize(true)
-        binding.rvClientesTarjetas.layoutManager = LinearLayoutManager(this)
+        binding.rvClientesTarjetas.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
         binding.rvClientesTarjetas.adapter = adapterClienteTarjeta
     }
     private fun navigateToDetailClientesTarjeta (clienteSendResponse: ClienteSendResponse){
