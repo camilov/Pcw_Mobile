@@ -31,6 +31,7 @@ class ClientesActivity : AppCompatActivity() {
 
     companion object{
         const val CREATE_ID = 0
+        const val VALOR_PRESTADO = 0
     }
 
     private lateinit var binding: ItemClientesBinding

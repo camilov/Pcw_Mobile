@@ -15,7 +15,7 @@ class TarjetaOperationActivity : AppCompatActivity() {
     var idCliente    : Int?   = null
     var interes      : Float? = null
     var idEstado     : Int?   = null
-    var fechaPrestamo: Date? = null
+    var fechaPrestamo: String? = null
     var numCuotas    : Int?   = null
     var valorDefecto : Int?   = null
     var valorPrestado: Float? = null
@@ -31,7 +31,7 @@ class TarjetaOperationActivity : AppCompatActivity() {
         idCliente     = intent.extras?.getInt("ID_CLIENTE")
         interes       = intent.extras?.getFloat("ID_INTERES")
         idEstado      = intent.extras?.getInt("ID_ESTADO")
-        fechaPrestamo = intent.extras?.get("FEC_PRESTAMO") as Date
+        fechaPrestamo = intent.extras?.getString("FEC_PRESTAMO")
         numCuotas     = intent.extras?.getInt("NUM_CUOTAS")
         valorDefecto  = intent.extras?.getInt("VALOR_DEFECTO")
         valorPrestado = intent.extras?.getFloat("VALOR_PRESTADO")

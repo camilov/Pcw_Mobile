@@ -2,12 +2,14 @@ package com.example.pcw.TarjetasClass
 
 import android.app.Dialog
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pcw.Api.ApiService
@@ -19,6 +21,8 @@ import com.example.pcw.DataResponse.TarjetasItemResponse
 import com.example.pcw.databinding.ItemTarjetasBinding
 import com.example.pcw.Api.ServiceBuilder
 import com.example.pcw.ClienteSendDataResponse
+import com.example.pcw.DataResponse.TarjetasCreateResponse
+import com.example.pcw.FuncionesClass.FuncionesResponse
 import com.example.pcw.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,10 +41,12 @@ class TarjetasActivity : AppCompatActivity() {
     private lateinit var servicio: ApiService
     private lateinit var adapterClienteTarjeta: TarjetasAdapter
     private lateinit var adapterTarjetaCliente: TarjetasClienteAdapter
+    var idCliente:Int = 0
+    var currentDate: String = ""
 
 
 
-
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ItemTarjetasBinding.inflate(layoutInflater)
@@ -50,21 +56,7 @@ class TarjetasActivity : AppCompatActivity() {
 
     }
 
-   /* object ServiceBuilder {
-        private val client = OkHttpClient.Builder().build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8000/") //
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-
-        fun<T> buildService(service: Class<T>): T{
-            return retrofit.create(service)
-        }
-    }*/
-
-
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun initUI() {
 
         binding.searchClienteTarjetas.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
@@ -78,6 +70,11 @@ class TarjetasActivity : AppCompatActivity() {
             }
 
         })
+
+        val funcionesResponse = FuncionesResponse()
+
+        currentDate = funcionesResponse.getCurrentDate()
+
 
         binding.fabAddCard.setOnClickListener { showCreateCardDialog() }
 
@@ -101,20 +98,30 @@ class TarjetasActivity : AppCompatActivity() {
             if(currentValorPrestado != null){
                 CoroutineScope(Dispatchers.IO).launch {
                     // val myResponse:ApiService = ServiceBuilder.buildService(ApiService::class.java)
-                    val userData = ClienteSendDataResponse(ClientesActivity.CREATE_ID,etTask.text.toString())
+                    val tarjetaData = TarjetasItemResponse(FuncionesResponse.CREATE_ID    ,
+                                                           idCliente                     ,
+                                                           currentValorPrestado.toFloat(),
+                                                           FuncionesResponse.VALOR_PRESTADO.toFloat(),
+                                                           currentDate,
+                                                           FuncionesResponse.NUM_CUOTA               ,
+                                                           FuncionesResponse.CREATE_ESTADO_ID,
+                                                           FuncionesResponse.INTERES.toFloat(),
+                                                           currentValorDefecto.toInt(),
+                                                           currentDate)
 
-                    servicio.addUser(userData).enqueue(
-                        object: Callback<ClienteSendResponse> {
+                    servicio.addTarjeta(tarjetaData).enqueue(
+                        object: Callback<TarjetasCreateResponse> {
                             override fun onResponse(
-                                call: Call<ClienteSendResponse>,
-                                response: Response<ClienteSendResponse>
+                                call: Call<TarjetasCreateResponse>,
+                                response: Response<TarjetasCreateResponse>
                             ) {
                                 Toast.makeText(this@TarjetasActivity,"Se Creo tarjeta correctamente",
                                     Toast.LENGTH_LONG)
                             }
 
-                            override fun onFailure(call: Call<ClienteSendResponse>, t: Throwable) {
-                                TODO("Not yet implemented")
+                            override fun onFailure(call: Call<TarjetasCreateResponse>, t: Throwable) {
+                                Toast.makeText(this@TarjetasActivity,"Error al crear tarjeta",
+                                    Toast.LENGTH_LONG)
                             }
                         }
                     )
@@ -128,9 +135,6 @@ class TarjetasActivity : AppCompatActivity() {
     }
 
     private fun navigateToDetailClientesTarjeta (clienteSendResponse: ClienteSendResponse){
-        /*val intent = Intent(this,DetailSuperheroActivity::class.java)
-        intent.putExtra(EXTRA_ID,id)
-        startActivity(intent)*/
         showTarjetas(clienteSendResponse)
     }
 
@@ -154,31 +158,32 @@ class TarjetasActivity : AppCompatActivity() {
     private fun showTarjetas(clienteSendResponse: ClienteSendResponse) {
 
         //Log.i("camilo", "entra a showTarjetas: ")
+
+        asignarVariables(clienteSendResponse)
+
         CoroutineScope(Dispatchers.IO).launch {
 
-            //Log.i("camilo", "${clienteSendResponse.idCliente}")
 
             val myResponse: Response<TarjetasDataResponse> =
-            //retrofit.create(ApiService::class.java).getClienteDetail(query.toString())
-                // ServiceBuilder.buildService(ApiService::class.java).getClienteDetail(query.toString())
                 servicio.getClientTarjetaDetail(clienteSendResponse.idCliente)
-           // Log.i("camilo", "${myResponse}: ")
 
             if (myResponse.isSuccessful) {
-               // Log.i("camilo", "funciona: ")
                 val response: TarjetasDataResponse? = myResponse.body()
-                //Log.i("camilo", "response: ${response}")
-                if (response != null) {
-                    //Log.i("camilo", "Respuesta"+response.toString())
 
+                if (response != null) {
                     runOnUiThread {
-                        createTarjetaCliente(response)
-                        /*binding.progressBar.isVisible = false*/ }
+                        createTarjetaCliente(response)}
                 }
             } else {
                 Log.i("camilo", "No funciona: ")
             }
         }
+    }
+
+    private fun asignarVariables(clienteSendResponse: ClienteSendResponse) {
+
+        idCliente = clienteSendResponse.idCliente
+
     }
 
     private fun createTarjetaCliente(response: TarjetasDataResponse) {
@@ -190,6 +195,7 @@ class TarjetasActivity : AppCompatActivity() {
 
 
         adapterTarjetaCliente.updateList(response.lista)
+
     }
 
 

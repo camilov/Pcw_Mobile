@@ -11,15 +11,15 @@ class TarjetasClienteViewHolder(view: View): RecyclerView.ViewHolder(view)  {
     fun bind(item: TarjetasItemResponse,onItemSelected: (TarjetasItemResponse) -> Unit) {
         binding.tvTarjetaClienteEstado.text = item.idEstado.toString()
         binding.tvTarjetaClienteValorPrestado.text = item.valorPrestado.toString()
-        binding.root.setOnClickListener { onItemSelected(TarjetasItemResponse(
-                                                                              item.idTarjeta,
-                                                                              item.idCliente,
+        binding.root.setOnClickListener { onItemSelected(TarjetasItemResponse(item.idTarjeta    ,
+                                                                              item.idCliente    ,
                                                                               item.valorPrestado,
-                                                                              item.valorTotal,
-                                                                              item.numCuotas,
-                                                                              item.idEstado ,
-                                                                              item.interes,
-                                                                              item.valorDefecto,
-                                                                              item.fechaPrestamo))}
+                                                                              item.valorTotal   ,
+                                                                              item.fechaPrestamo,
+                                                                              item.numCuotas    ,
+                                                                              item.idEstado     ,
+                                                                              item.interes      ,
+                                                                              item.valorDefecto ,
+                                                                              item.fecActu      ))}
     }
 }

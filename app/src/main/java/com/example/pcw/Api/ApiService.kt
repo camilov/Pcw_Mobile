@@ -1,9 +1,7 @@
 package com.example.pcw.Api
 
 import com.example.pcw.*
-import com.example.pcw.DataResponse.AbonoItemResponse
-import com.example.pcw.DataResponse.AbonosDataResponse
-import com.example.pcw.DataResponse.TarjetasDataResponse
+import com.example.pcw.DataResponse.*
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -29,6 +27,9 @@ interface ApiService {
     /** Consultar tarjetas por id de cliente**/
     @GET("/api/tarjetas_id/{idCliente}")
     suspend fun getClientTarjetaDetail(@Path ("idCliente") tarjetaId: Number?): Response<TarjetasDataResponse>
+
+    @POST("/api/create_tarjeta/")
+    fun addTarjeta(@Body tarjetaData: TarjetasItemResponse): Call<TarjetasCreateResponse>
 
 
     /**********************  RUTAS ABONOS  **********************/
