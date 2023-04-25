@@ -20,7 +20,20 @@ data class AbonoItemResponse(
 
 data class AbonoSendResponse(
 
-    val idAbonoo:    Number,
+    val idAbonoo:   Number,
+    val idTarjeta:  Number,
+    val numCuota:   Number,
+    val valorAbono: Float ,
+    val fechaAbono: String
+)
+
+data class AbonoModifyResponse(
+    val numCuota:   Number,
+    val valorAbono: Float
+)
+
+data class AbonoSendModifyResponse(
+    val idAbono:   Number,
     val idTarjeta:  Number,
     val numCuota:   Number,
     val valorAbono: Float ,

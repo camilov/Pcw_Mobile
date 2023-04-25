@@ -27,7 +27,7 @@ interface ApiService {
     /** Consultar tarjetas por id de cliente**/
     @GET("/api/tarjetas_id/{idCliente}")
     suspend fun getClientTarjetaDetail(@Path ("idCliente") tarjetaId: Number?): Response<TarjetasDataResponse>
-
+    /** Crear tarjeta**/
     @POST("/api/create_tarjeta/")
     fun addTarjeta(@Body tarjetaData: TarjetasItemResponse): Call<TarjetasCreateResponse>
 
@@ -40,5 +40,12 @@ interface ApiService {
     /** Crear abono**/
     @POST("/api/create_abono/")
     fun addAbono(@Body abonoData: AbonoItemResponse): Call<AbonoItemResponse>
+
+    /** Modificar abono**/
+    @PUT("/api/modificar_abono/{idAbono}")
+    fun modifyAbono(@Path("idAbono") abonoId:Int,
+                     @Body abonoData: AbonoModifyResponse
+    ): Call<AbonoSendModifyResponse>
+
 
 }

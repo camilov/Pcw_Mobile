@@ -18,9 +18,7 @@ import com.example.pcw.Api.ServiceBuilder
 import com.example.pcw.ClienteSendDataResponse
 import com.example.pcw.ClienteSendResponse
 import com.example.pcw.ClientesClass.ClientesActivity
-import com.example.pcw.DataResponse.AbonoItemResponse
-import com.example.pcw.DataResponse.AbonoSendResponse
-import com.example.pcw.DataResponse.AbonosDataResponse
+import com.example.pcw.DataResponse.*
 import com.example.pcw.R
 import com.example.pcw.databinding.ItemAbonosBinding
 import kotlinx.coroutines.CoroutineScope
@@ -65,8 +63,41 @@ class AbonosActivity : AppCompatActivity() {
     private fun initListeners() {
 
         binding.btnAddAbono.setOnClickListener{addAbono()}
+        binding.btnEditAbono.setOnClickListener{editAbono()}
 
+    }
+
+    private fun editAbono(){
+
+
+        val currentNumCuota = binding.etNumCuotaAbonos.text.toString()
+        val currentValorAbono = binding.etValorAbonoAbonos.text.toString()
+        val currentIdAbono = binding.etIdAbono.text.toString()
+
+        if(currentNumCuota != null && currentValorAbono != null)
+        {
+            CoroutineScope(Dispatchers.IO).launch {
+                val abonoModifyDataResponse= AbonoModifyResponse(currentNumCuota.toInt(),currentValorAbono.toFloat())
+                servicio.modifyAbono(currentIdAbono.toInt(),abonoModifyDataResponse).enqueue(
+                    object: Callback<AbonoSendModifyResponse> {
+                        override fun onResponse(
+                            call: Call<AbonoSendModifyResponse>,
+                            response: Response<AbonoSendModifyResponse>
+                        ) {
+                            Toast.makeText(this@AbonosActivity,"Se Modifico abono corretamente",Toast.LENGTH_LONG)
+                        }
+
+                        override fun onFailure(call: Call<AbonoSendModifyResponse>, t: Throwable) {
+                            Toast.makeText(this@AbonosActivity,"Error",Toast.LENGTH_LONG)
+                        }
+
+                    }
+                )
+            }
+            //Toast.makeText(this, "${currentIdAbono}", Toast.LENGTH_SHORT).show();
         }
+
+    }
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun addAbono() {
@@ -139,6 +170,7 @@ class AbonosActivity : AppCompatActivity() {
                    // Log.d("scordsito","$controlCodigo")
                     binding.etNumCuotaAbonos.setText( cuoutaCodigo)
                     binding.etValorAbonoAbonos.setText( valorCodigo)
+                    binding.etIdAbono.setText(abonoCodigo)
 
 
                 }
@@ -172,6 +204,8 @@ class AbonosActivity : AppCompatActivity() {
 
 
     private fun initUI() {
+
+        binding.etIdAbono.setVisibility(View.GONE);
 
         CoroutineScope(Dispatchers.IO).launch {
 

@@ -66,6 +66,14 @@
             android:textSize="20sp"
             tools:text="cuota">
         </EditText>
+
+        <EditText
+            android:id="@+id/etIdAbono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="idabono">
+        </EditText>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
