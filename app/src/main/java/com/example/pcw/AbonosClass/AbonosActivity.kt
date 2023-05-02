@@ -185,7 +185,6 @@ class AbonosActivity : AppCompatActivity() {
 
         for (abonosLists in abonosList) {
 
-
             val registro = LayoutInflater.from(this).inflate(R.layout.row_table_abonos,null,false)
             val tvIdAbono = registro.findViewById<View>(R.id.tvIdAbono) as TextView
             val tvNumCuota = registro.findViewById<View>(R.id.tvNumCuota) as TextView
