@@ -42,6 +42,7 @@ class AbonosActivity : AppCompatActivity() {
 
     private var idTarjeta: Number? = null
     private var idCliente: Number? = null
+    private var example:Number? = null
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
