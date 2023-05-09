@@ -65,7 +65,44 @@ class AbonosActivity : AppCompatActivity() {
 
         binding.btnAddAbono.setOnClickListener{addAbono()}
         binding.btnEditAbono.setOnClickListener{editAbono()}
+        binding.btnDeleteAbono.setOnClickListener{deleteAbono()}
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun addAbono() {
+
+        val currentNumCuota   = binding.etNumCuotaAbonos.text.toString()
+        val currentValorAbono = binding.etValorAbonoAbonos.text.toString()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val fechaActual = Date()
+        val fechaFormateada = dateFormat.format(fechaActual)
+        Log.d("scordsito","$fechaFormateada")
+
+
+        if(currentNumCuota != null && currentValorAbono != null){
+
+            CoroutineScope(Dispatchers.IO).launch {
+                // val myResponse:ApiService = ServiceBuilder.buildService(ApiService::class.java)
+                Log.d("scordsito","$idTarjeta")
+                val abonoData = AbonoItemResponse(ClientesActivity.CREATE_ID,idTarjeta!!,currentNumCuota.toInt(),currentValorAbono.toFloat(),fechaFormateada)
+
+                servicio.addAbono(abonoData).enqueue(
+                    object: Callback<AbonoItemResponse> {
+                        override fun onResponse(
+                            call: Call<AbonoItemResponse>,
+                            response: Response<AbonoItemResponse>
+                        ) {
+                            Toast.makeText(this@AbonosActivity,"Se Añadio abono corretamente",Toast.LENGTH_LONG)
+                        }
+
+                        override fun onFailure(call: Call<AbonoItemResponse>, t: Throwable) {
+                            Toast.makeText(this@AbonosActivity,"Error",Toast.LENGTH_LONG)
+                        }
+                    }
+                )
+            }
+        }
     }
 
     private fun editAbono(){
@@ -100,44 +137,38 @@ class AbonosActivity : AppCompatActivity() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun addAbono() {
 
-        val currentNumCuota   = binding.etNumCuotaAbonos.text.toString()
+
+    private fun deleteAbono(){
+
+        val currentNumCuota = binding.etNumCuotaAbonos.text.toString()
         val currentValorAbono = binding.etValorAbonoAbonos.text.toString()
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val fechaActual = Date()
-        val fechaFormateada = dateFormat.format(fechaActual)
-        Log.d("scordsito","$fechaFormateada")
+        val currentIdAbono = binding.etIdAbono.text.toString()
 
-
-        if(currentNumCuota != null && currentValorAbono != null){
-
+        if(currentNumCuota != null && currentValorAbono != null)
+        {
             CoroutineScope(Dispatchers.IO).launch {
-                // val myResponse:ApiService = ServiceBuilder.buildService(ApiService::class.java)
-                Log.d("scordsito","$idTarjeta")
-                val abonoData = AbonoItemResponse(ClientesActivity.CREATE_ID,idTarjeta!!,currentNumCuota.toInt(),currentValorAbono.toFloat(),fechaFormateada)
 
-                servicio.addAbono(abonoData).enqueue(
-                    object: Callback<AbonoItemResponse> {
+                val AbonoDeleteResponse= AbonoDeleteResponse("")
+
+                servicio.deleteAbono(currentIdAbono.toInt()).enqueue(
+                    object: Callback<AbonoDeleteResponse> {
                         override fun onResponse(
-                            call: Call<AbonoItemResponse>,
-                            response: Response<AbonoItemResponse>
+                            call: Call<AbonoDeleteResponse>,
+                            response: Response<AbonoDeleteResponse>
                         ) {
-                            Toast.makeText(this@AbonosActivity,"Se Añadio abono corretamente",Toast.LENGTH_LONG)
+                            Toast.makeText(this@AbonosActivity,"Se Elimino abono corretamente",Toast.LENGTH_LONG)
                         }
 
-                        override fun onFailure(call: Call<AbonoItemResponse>, t: Throwable) {
-                            Toast.makeText(this@AbonosActivity,"Error",Toast.LENGTH_LONG)
+                        override fun onFailure(call: Call<AbonoDeleteResponse>, t: Throwable) {
+                            Toast.makeText(this@AbonosActivity,"Error al eliminar abono",Toast.LENGTH_LONG)
                         }
 
                     }
                 )
-
             }
-
+            //Toast.makeText(this, "${currentIdAbono}", Toast.LENGTH_SHORT).show();
         }
-
 
     }
 
@@ -200,8 +231,6 @@ class AbonosActivity : AppCompatActivity() {
         }
 
     }
-
-
 
     private fun initUI() {
 

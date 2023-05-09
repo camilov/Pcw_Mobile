@@ -39,3 +39,7 @@ data class AbonoSendModifyResponse(
     val valorAbono: Float ,
     val fechaAbono: String
 )
+
+data class AbonoDeleteResponse(
+    val response: String
+)

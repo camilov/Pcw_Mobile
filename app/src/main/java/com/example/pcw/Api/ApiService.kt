@@ -47,5 +47,9 @@ interface ApiService {
                      @Body abonoData: AbonoModifyResponse
     ): Call<AbonoSendModifyResponse>
 
+    /** Eliminar abono**/
+    @DELETE("/api/eliminar_abono/{idAbono}")
+    fun deleteAbono(@Path("idAbono") abonoId:Int): Call<AbonoDeleteResponse>
+
 
 }
