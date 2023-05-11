@@ -1,28 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/trAbono"
+    android:id="@+id/trHdAbono"
     android:layout_width="409dp"
     android:layout_height="729dp">
 
-    <TextView
-        android:id="@+id/tvIdAbono"
+   <!-- <TextView
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:text="@string/num_cuota"
+        android:padding="5dp"
+        android:textColor="@color/black" />-->
+
+    <TextView
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/valor_abono"
         android:textColor="@color/black" />
 
     <TextView
-        android:id="@+id/tvNumCuota"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/tvValorAbono"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:text="@string/fecha_abono"
         android:textColor="@color/black" />
 </TableRow>

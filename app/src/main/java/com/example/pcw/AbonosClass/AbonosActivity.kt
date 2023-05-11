@@ -1,5 +1,6 @@
 package com.example.pcw.AbonosClass
 
+//import android.R
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.os.Build
@@ -15,8 +16,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pcw.Api.ApiService
 import com.example.pcw.Api.ServiceBuilder
-import com.example.pcw.ClienteSendDataResponse
-import com.example.pcw.ClienteSendResponse
 import com.example.pcw.ClientesClass.ClientesActivity
 import com.example.pcw.DataResponse.*
 import com.example.pcw.R
@@ -24,13 +23,11 @@ import com.example.pcw.databinding.ItemAbonosBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.Instant.now
-import java.time.LocalDate
 import java.util.*
+
 
 class AbonosActivity : AppCompatActivity() {
 
@@ -215,20 +212,43 @@ class AbonosActivity : AppCompatActivity() {
 
         binding.tlAbonos.removeAllViews()
 
-        for (abonosLists in abonosList) {
+        Log.d("scordsito","entra a fill table")
 
-            val registro = LayoutInflater.from(this).inflate(R.layout.row_table_abonos,null,false)
-            val tvIdAbono = registro.findViewById<View>(R.id.tvIdAbono) as TextView
-            val tvNumCuota = registro.findViewById<View>(R.id.tvNumCuota) as TextView
-            val tvValorAbono = registro.findViewById<View>(R.id.tvValorAbono) as TextView
+        val headAbono = LayoutInflater.from(this).inflate(R.layout.head_table_abonos,null,false)
+        binding.tlAbonos.addView(headAbono)
 
-            tvIdAbono.text = abonosLists.idAbono.toString()
-            tvNumCuota.text = abonosLists.numCuota.toString()
-            tvValorAbono.text = abonosLists.valorAbono.toInt().toString()
+        if(abonosList.size > 0) {
 
-            binding.tlAbonos.addView(registro)
+            Log.d("scordsito","entra a if fill table")
+            for (abonosLists in abonosList) {
+
+                val registro =
+                    LayoutInflater.from(this).inflate(R.layout.row_table_abonos, null, false)
+                val tvIdAbono = registro.findViewById<View>(R.id.tvIdAbono) as TextView
+                val tvNumCuota = registro.findViewById<View>(R.id.tvNumCuota) as TextView
+                val tvValorAbono = registro.findViewById<View>(R.id.tvValorAbono) as TextView
+
+                //val tvTrAbonos: TextView = binding.trAbonos.findViewById(com.example.pcw.R.id.tvTrAbonos)
+
+
+                tvIdAbono.text = abonosLists.idAbono.toString()
+                tvNumCuota.text = abonosLists.numCuota.toString()
+                tvValorAbono.text = abonosLists.valorAbono.toInt().toString()
+
+                tvIdAbono.setVisibility(View.GONE)
+
+                binding.tlAbonos.addView(registro)
+
+            }
+        }else{
+
+            Log.d("scordsito","entra a else de fill table")
+            val registro =
+                LayoutInflater.from(this).inflate(R.layout.row_table_abonos, null, false)
+                binding.tlAbonos.addView(registro)
 
         }
+
 
     }
 
