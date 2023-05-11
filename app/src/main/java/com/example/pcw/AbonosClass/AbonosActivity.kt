@@ -91,6 +91,7 @@ class AbonosActivity : AppCompatActivity() {
                             call: Call<AbonoItemResponse>,
                             response: Response<AbonoItemResponse>
                         ) {
+                            initUI()
                             Toast.makeText(this@AbonosActivity,"Se Añadio abono corretamente",Toast.LENGTH_LONG)
                         }
 
@@ -104,7 +105,6 @@ class AbonosActivity : AppCompatActivity() {
     }
 
     private fun editAbono(){
-
 
         val currentNumCuota = binding.etNumCuotaAbonos.text.toString()
         val currentValorAbono = binding.etValorAbonoAbonos.text.toString()
@@ -120,6 +120,7 @@ class AbonosActivity : AppCompatActivity() {
                             call: Call<AbonoSendModifyResponse>,
                             response: Response<AbonoSendModifyResponse>
                         ) {
+                            initUI()
                             Toast.makeText(this@AbonosActivity,"Se Modifico abono corretamente",Toast.LENGTH_LONG)
                         }
 
@@ -155,6 +156,7 @@ class AbonosActivity : AppCompatActivity() {
                             call: Call<AbonoDeleteResponse>,
                             response: Response<AbonoDeleteResponse>
                         ) {
+                            initUI()
                             Toast.makeText(this@AbonosActivity,"Se Elimino abono corretamente",Toast.LENGTH_LONG)
                         }
 
