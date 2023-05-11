@@ -1,6 +1,7 @@
 package com.example.pcw.AbonosClass
 
 //import android.R
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.os.Build
@@ -167,6 +168,7 @@ class AbonosActivity : AppCompatActivity() {
             //Toast.makeText(this, "${currentIdAbono}", Toast.LENGTH_SHORT).show();
         }
 
+
     }
 
     private fun selectedRow() {
@@ -208,6 +210,7 @@ class AbonosActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("SuspiciousIndentation")
     private fun fillTable(abonosList: List<AbonoItemResponse>) {
 
         binding.tlAbonos.removeAllViews()

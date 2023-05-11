@@ -3,26 +3,33 @@
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/trAbono"
     android:layout_width="409dp"
-    android:layout_height="729dp">
+    android:layout_height="729dp"
+    android:baselineAligned="true">
 
     <TextView
         android:id="@+id/tvIdAbono"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:baselineAligned="true"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/tvNumCuota"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:baselineAligned="true"
+        android:textAlignment="center"  />
 
     <TextView
         android:id="@+id/tvValorAbono"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:baselineAligned="true"
+        android:textAlignment="center"  />
 </TableRow>
