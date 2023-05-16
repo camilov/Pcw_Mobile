@@ -20,6 +20,7 @@ import com.example.pcw.Api.ServiceBuilder
 import com.example.pcw.ClientesClass.ClientesActivity
 import com.example.pcw.DataResponse.*
 import com.example.pcw.R
+import com.example.pcw.constantes.Constantes
 import com.example.pcw.databinding.ItemAbonosBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -41,7 +42,6 @@ class AbonosActivity : AppCompatActivity() {
     private var idTarjeta: Number? = null
     private var idCliente: Number? = null
     private var valorTotal: Number? =  null
-    private var example:Number? = null
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +56,8 @@ class AbonosActivity : AppCompatActivity() {
         servicio =  ServiceBuilder.buildService(ApiService::class.java)
         initUI()
         initListeners()
+
+
 
         Log.d("scord1", "${idTarjeta}")
     }
@@ -77,6 +79,10 @@ class AbonosActivity : AppCompatActivity() {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val fechaActual = Date()
         val fechaFormateada = dateFormat.format(fechaActual)
+
+       // valorTotal = valorTotal?.plus(currentValorAbono.toInt())
+        val valorTotalD = valorTotal
+
         //Log.d("scordsito","$fechaFormateada")
 
 
@@ -87,7 +93,7 @@ class AbonosActivity : AppCompatActivity() {
                 //Log.d("scordsito", "$idTarjeta")
                 /** ABONO*/
                 val abonoData = AbonoItemResponse(
-                    ClientesActivity.CREATE_ID,
+                    Constantes.CREATE_ID,
                     idTarjeta!!,
                     currentNumCuota.toInt(),
                     currentValorAbono.toFloat(),
@@ -104,12 +110,13 @@ class AbonosActivity : AppCompatActivity() {
                 val idCliente    : Number,
                 val fecMvto      : String,
                 val mcaAjuste    : Number*/
+
                 /** MOVIMIENTO*/
                 val movementData = AbonoMovementResponse(
-                    ClientesActivity.CREATE_ID,
-                    ClientesActivity.CREATE_ID.toFloat(),
-                    ClientesActivity.CREATE_ID.toFloat(),
-                    "A",
+                    Constantes.CREATE_ID,
+                    currentValorAbono.toFloat(),
+                    Constantes.CERO.toFloat(),
+                    Constantes.ABONO,
                     idTarjeta!!,
                     idCliente!!,
                     fechaFormateada,
@@ -117,13 +124,13 @@ class AbonosActivity : AppCompatActivity() {
                 )
 
                 /** ACTUALIZACION DE TARJETA*/
-                val tarjetaData = AbonoModifyTarjeta(ClientesActivity.CREATE_ID.toFloat(), currentNumCuota.toInt(), fechaFormateada)
+                val tarjetaData = AbonoModifyTarjeta(currentValorAbono.toFloat(), currentNumCuota.toInt(), fechaFormateada)
 
-                val AbonoRequestData = AbonoRequestData(abonoData, movementData, tarjetaData)
+                val abonoRequestData = AbonoRequestData(abonoData, movementData, tarjetaData)//
 
 
-                Log.d("scordsito","$AbonoRequestData")
-                servicio.addAbono(AbonoRequestData).enqueue(
+                Log.d("scordsito","$abonoRequestData")
+                servicio.addAbono(abonoRequestData).enqueue(
                     object: Callback<AbonoItemResponse> {
                         override fun onResponse(
                             call: Call<AbonoItemResponse>,
@@ -327,6 +334,8 @@ class AbonosActivity : AppCompatActivity() {
         }
     }
 }
+
+
 
 
 

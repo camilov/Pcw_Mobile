@@ -58,7 +58,7 @@ data class AbonoMovementResponse(
 
 data class AbonoModifyTarjeta(
     val valorTotal : Float,
-    val numCuota: Number,
+    val numCuotas: Number,
     val fecActu: String
 
 )
