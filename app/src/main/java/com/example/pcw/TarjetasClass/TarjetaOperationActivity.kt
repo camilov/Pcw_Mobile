@@ -61,6 +61,7 @@ class TarjetaOperationActivity : AppCompatActivity() {
         val intent =  Intent(this, AbonosActivity::class.java)
         intent.putExtra("ID_TARJETA"    ,idTarjeta    )
         intent.putExtra("ID_CLIENTE"    ,idCliente    )
+        intent.putExtra("VALOR_TOTAL"   ,valorTotal   )
         startActivity(intent)
     }
 

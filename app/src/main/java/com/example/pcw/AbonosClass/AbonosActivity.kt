@@ -40,6 +40,7 @@ class AbonosActivity : AppCompatActivity() {
 
     private var idTarjeta: Number? = null
     private var idCliente: Number? = null
+    private var valorTotal: Number? =  null
     private var example:Number? = null
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -50,6 +51,7 @@ class AbonosActivity : AppCompatActivity() {
 
         idTarjeta = intent.extras?.getInt("ID_TARJETA")
         idCliente = intent.extras?.getInt("ID_CLIENTE")
+        valorTotal = intent.extras?.getFloat("VALOR_TOTAL")
 
         servicio =  ServiceBuilder.buildService(ApiService::class.java)
         initUI()
@@ -75,17 +77,53 @@ class AbonosActivity : AppCompatActivity() {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val fechaActual = Date()
         val fechaFormateada = dateFormat.format(fechaActual)
-        Log.d("scordsito","$fechaFormateada")
+        //Log.d("scordsito","$fechaFormateada")
 
 
         if(currentNumCuota != null && currentValorAbono != null){
 
             CoroutineScope(Dispatchers.IO).launch {
                 // val myResponse:ApiService = ServiceBuilder.buildService(ApiService::class.java)
-                Log.d("scordsito","$idTarjeta")
-                val abonoData = AbonoItemResponse(ClientesActivity.CREATE_ID,idTarjeta!!,currentNumCuota.toInt(),currentValorAbono.toFloat(),fechaFormateada)
+                //Log.d("scordsito", "$idTarjeta")
+                /** ABONO*/
+                val abonoData = AbonoItemResponse(
+                    ClientesActivity.CREATE_ID,
+                    idTarjeta!!,
+                    currentNumCuota.toInt(),
+                    currentValorAbono.toFloat(),
+                    fechaFormateada
+                )
 
-                servicio.addAbono(abonoData).enqueue(
+
+                /**
+                 *val idMovimiento : Number,
+                val entrada      : Float,
+                val salida       : Float,
+                val tipMvto      : String,
+                val idTarjeta    : Number,
+                val idCliente    : Number,
+                val fecMvto      : String,
+                val mcaAjuste    : Number*/
+                /** MOVIMIENTO*/
+                val movementData = AbonoMovementResponse(
+                    ClientesActivity.CREATE_ID,
+                    ClientesActivity.CREATE_ID.toFloat(),
+                    ClientesActivity.CREATE_ID.toFloat(),
+                    "A",
+                    idTarjeta!!,
+                    idCliente!!,
+                    fechaFormateada,
+                    0
+                )
+
+                /** ACTUALIZACION DE TARJETA*/
+                val tarjetaData = AbonoModifyTarjeta(ClientesActivity.CREATE_ID.toFloat(), currentNumCuota.toInt(), fechaFormateada)
+
+                val AbonoRequestData = AbonoRequestData(abonoData, movementData, tarjetaData)
+
+
+                Log.d("scordsito","$AbonoRequestData")
+                servicio.addAbono(AbonoRequestData).enqueue(
                     object: Callback<AbonoItemResponse> {
                         override fun onResponse(
                             call: Call<AbonoItemResponse>,
@@ -94,6 +132,7 @@ class AbonosActivity : AppCompatActivity() {
                             initUI()
                             Toast.makeText(this@AbonosActivity,"Se Añadio abono corretamente",Toast.LENGTH_LONG)
                         }
+
 
                         override fun onFailure(call: Call<AbonoItemResponse>, t: Throwable) {
                             Toast.makeText(this@AbonosActivity,"Error",Toast.LENGTH_LONG)

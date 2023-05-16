@@ -39,7 +39,9 @@ interface ApiService {
 
     /** Crear abono**/
     @POST("/api/create_abono/")
-    fun addAbono(@Body abonoData: AbonoItemResponse): Call<AbonoItemResponse>
+    //fun addAbono(@Body abonoData: AbonoItemResponse,@Body movimientoData:AbonoMovementResponse,@Body tarjetaData:AbonoModifyTarjeta): Call<AbonoItemResponse>
+    fun addAbono(@Body abonoData: AbonoRequestData): Call<AbonoItemResponse>
+
 
     /** Modificar abono**/
     @PUT("/api/modificar_abono/{idAbono}")

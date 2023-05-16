@@ -43,3 +43,28 @@ data class AbonoSendModifyResponse(
 data class AbonoDeleteResponse(
     val response: String
 )
+
+data class AbonoMovementResponse(
+   val idMovimiento : Number,
+   val entrada      : Float,
+   val salida       : Float,
+   val tipMvto      : String,
+   val idTarjeta    : Number,
+   val idCliente    : Number,
+   val fecMvto      : String,
+   val mcaAjuste    : Number
+
+)
+
+data class AbonoModifyTarjeta(
+    val valorTotal : Float,
+    val numCuota: Number,
+    val fecActu: String
+
+)
+
+data class AbonoRequestData(
+    val abonoData: AbonoItemResponse,
+    val movimientoData: AbonoMovementResponse,
+    val tarjetaData: AbonoModifyTarjeta
+)
