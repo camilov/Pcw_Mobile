@@ -46,7 +46,7 @@ data class AbonoDeleteResponse(
 
 data class AbonoMovementResponse(
    val idMovimiento : Number,
-   val entrada      : Float,
+   val entrada      : Float?,
    val salida       : Float,
    val tipMvto      : String,
    val idTarjeta    : Number,
@@ -57,7 +57,7 @@ data class AbonoMovementResponse(
 )
 
 data class AbonoModifyTarjeta(
-    val valorTotal : Float,
+    val valorTotal : Float?,
     val numCuotas: Number,
     val fecActu: String
 

@@ -41,7 +41,7 @@ class AbonosActivity : AppCompatActivity() {
 
     private var idTarjeta: Number? = null
     private var idCliente: Number? = null
-    private var valorTotal: Number? =  null
+    private var valorTotal: Float? =  null
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,8 +80,10 @@ class AbonosActivity : AppCompatActivity() {
         val fechaActual = Date()
         val fechaFormateada = dateFormat.format(fechaActual)
 
-       // valorTotal = valorTotal?.plus(currentValorAbono.toInt())
-        val valorTotalD = valorTotal
+        val currentValorToSum = currentValorAbono.toInt()
+
+        valorTotal = valorTotal?.plus(currentValorToSum)
+        val valorTotalD: Float? = valorTotal
 
         //Log.d("scordsito","$fechaFormateada")
 
@@ -114,7 +116,7 @@ class AbonosActivity : AppCompatActivity() {
                 /** MOVIMIENTO*/
                 val movementData = AbonoMovementResponse(
                     Constantes.CREATE_ID,
-                    currentValorAbono.toFloat(),
+                    valorTotalD,
                     Constantes.CERO.toFloat(),
                     Constantes.ABONO,
                     idTarjeta!!,
@@ -124,7 +126,7 @@ class AbonosActivity : AppCompatActivity() {
                 )
 
                 /** ACTUALIZACION DE TARJETA*/
-                val tarjetaData = AbonoModifyTarjeta(currentValorAbono.toFloat(), currentNumCuota.toInt(), fechaFormateada)
+                val tarjetaData = AbonoModifyTarjeta(valorTotalD, currentNumCuota.toInt(), fechaFormateada)
 
                 val abonoRequestData = AbonoRequestData(abonoData, movementData, tarjetaData)//
 
