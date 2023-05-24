@@ -19,6 +19,7 @@ import com.example.pcw.Api.ApiService
 import com.example.pcw.Api.ServiceBuilder
 import com.example.pcw.ClientesClass.ClientesActivity
 import com.example.pcw.DataResponse.*
+import com.example.pcw.FuncionesClass.FuncionesResponse
 import com.example.pcw.R
 import com.example.pcw.constantes.Constantes
 import com.example.pcw.databinding.ItemAbonosBinding
@@ -42,6 +43,9 @@ class AbonosActivity : AppCompatActivity() {
     private var idTarjeta: Number? = null
     private var idCliente: Number? = null
     private var valorTotal: Float? =  null
+    private var valorDefecto: Number? =  null
+    private var numCuotas: Number? =  null
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +56,10 @@ class AbonosActivity : AppCompatActivity() {
         idTarjeta = intent.extras?.getInt("ID_TARJETA")
         idCliente = intent.extras?.getInt("ID_CLIENTE")
         valorTotal = intent.extras?.getFloat("VALOR_TOTAL")
+        valorDefecto = intent.extras?.getInt("VALOR_DEFECTO")
+        numCuotas   = intent.extras?.getInt("NUM_CUOTAS")
+
+        Log.d("scordsito","valordefecto= ${valorDefecto}")
 
         servicio =  ServiceBuilder.buildService(ApiService::class.java)
         initUI()
@@ -151,7 +159,7 @@ class AbonosActivity : AppCompatActivity() {
             }
         }
     }
-
+    //////////////////////////////////////////////////////////////////////////////////VOY ACA////////////////////////////////////////////////////////////////
     private fun editAbono(){
 
         val currentNumCuota = binding.etNumCuotaAbonos.text.toString()
@@ -299,6 +307,12 @@ class AbonosActivity : AppCompatActivity() {
             val registro =
                 LayoutInflater.from(this).inflate(R.layout.row_table_abonos, null, false)
                 binding.tlAbonos.addView(registro)
+            Log.d("scordsito","valordefectodespues ${valorDefecto}")
+            if(valorDefecto != 0){
+
+                binding.etValorAbonoAbonos.setText( valorDefecto.toString())
+               binding.etNumCuotaAbonos.setText( FuncionesResponse.UNO.toString())
+            }
 
         }
 

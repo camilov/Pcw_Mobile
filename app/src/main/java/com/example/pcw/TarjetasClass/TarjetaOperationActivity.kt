@@ -62,6 +62,8 @@ class TarjetaOperationActivity : AppCompatActivity() {
         intent.putExtra("ID_TARJETA"    ,idTarjeta    )
         intent.putExtra("ID_CLIENTE"    ,idCliente    )
         intent.putExtra("VALOR_TOTAL"   ,valorTotal   )
+        intent.putExtra("VALOR_DEFECTO"   ,valorDefecto   )
+        intent.putExtra("NUM_CUOTAS"   ,numCuotas   )
         startActivity(intent)
     }
 

@@ -140,6 +140,7 @@ class TarjetasActivity : AppCompatActivity() {
 
     private fun navigateToTarjetas(tarjetasItemResponse: TarjetasItemResponse){
 
+
         val intent =  Intent(this,TarjetaOperationActivity::class.java)
         intent.putExtra("ID_TARJETA"    ,tarjetasItemResponse.idTarjeta    )
         intent.putExtra("ID_CLIENTE"    ,tarjetasItemResponse.idCliente    )

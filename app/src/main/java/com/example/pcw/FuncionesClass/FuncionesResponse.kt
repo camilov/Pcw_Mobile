@@ -15,6 +15,7 @@ class FuncionesResponse {
         const val CREATE_ESTADO_ID = 1
         const val CLOSE_ESTADO_ID  = 1
         const val INTERES          = 0
+        const val UNO              = 1
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
