@@ -32,6 +32,13 @@ data class AbonoModifyResponse(
     val valorAbono: Float
 )
 
+data class AbonoTarjetaModifyResponse(
+    val valorTotal: Float?,
+    val numCuota: Number,
+    val fecActu: String
+
+)
+
 data class AbonoSendModifyResponse(
     val idAbono:   Number,
     val idTarjeta:  Number,
@@ -68,3 +75,4 @@ data class AbonoRequestData(
     val movimientoData: AbonoMovementResponse,
     val tarjetaData: AbonoModifyTarjeta
 )
+
