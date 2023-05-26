@@ -45,7 +45,7 @@ class AbonosActivity : AppCompatActivity() {
     private var valorTotal: Float? =  null
     private var valorDefecto: Number? =  null
     private var numCuotas: Number? =  null
-
+    private var valorAbonoSelected: Number? =  null
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -160,17 +160,50 @@ class AbonosActivity : AppCompatActivity() {
         }
     }
     //////////////////////////////////////////////////////////////////////////////////VOY ACA////////////////////////////////////////////////////////////////
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun editAbono(){
 
         val currentNumCuota = binding.etNumCuotaAbonos.text.toString()
         val currentValorAbono = binding.etValorAbonoAbonos.text.toString()
         val currentIdAbono = binding.etIdAbono.text.toString()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val fechaActual = Date()
+        val fechaFormateada = dateFormat.format(fechaActual)
+        val abonoDifference = valorAbonoSelected+currentValorAbono.toInt()
+
+        val valorTotalD: Float? = abonoDifference?.let { valorTotal?.plus(it.toFloat()) }
 
         if(currentNumCuota != null && currentValorAbono != null)
         {
             CoroutineScope(Dispatchers.IO).launch {
-                val abonoModifyDataResponse= AbonoModifyResponse(currentNumCuota.toInt(),currentValorAbono.toFloat())
-                servicio.modifyAbono(currentIdAbono.toInt(),abonoModifyDataResponse).enqueue(
+
+                /** ABONO*/
+                val abonoData = AbonoModifyResponse(currentNumCuota.toInt(),currentValorAbono.toFloat())
+
+                /** TARJETA*/
+                /** ACTUALIZACION DE TARJETA*/
+                val tarjetaData = AbonoModifyTarjeta(valorTotalD, currentNumCuota.toInt(), fechaFormateada)
+
+               /**
+                    val valorTotal : Float?,
+                    val numCuotas: Number,
+                    val fecActu: String*/
+
+               /** MOVIMIENTO*/
+               val movementData = AbonoMovementResponse(
+                   Constantes.CREATE_ID,
+                   Constantes.CERO.toFloat(),
+                   currentValorAbono.toFloat(),
+                   Constantes.ABONO,
+                   idTarjeta!!,
+                   idCliente!!,
+                   fechaFormateada,
+                   0
+               )
+
+                val abonoModifyRequestData = AbonoModifyRequestData(abonoData ,tarjetaData, movementData)
+
+                servicio.modifyAbono(currentIdAbono.toInt(),idTarjeta,Constantes.ABONO,abonoModifyRequestData).enqueue(
                     object: Callback<AbonoSendModifyResponse> {
                         override fun onResponse(
                             call: Call<AbonoSendModifyResponse>,
@@ -261,6 +294,8 @@ class AbonosActivity : AppCompatActivity() {
                     binding.etValorAbonoAbonos.setText( valorCodigo)
                     binding.etIdAbono.setText(abonoCodigo)
 
+                    valorAbonoSelected = valorCodigo.toInt()
+
 
                 }
             })
@@ -349,6 +384,10 @@ class AbonosActivity : AppCompatActivity() {
                 }
         }
     }
+}
+
+private operator fun Number?.plus(toInt: Int): Number? {
+    return this?.toDouble()?.plus(toInt)
 }
 
 

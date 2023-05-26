@@ -44,9 +44,9 @@ interface ApiService {
 
 
     /** Modificar abono**/
-    @PUT("/api/modificar_abono/{idAbono}")
+    @PUT("/api/modificar_abono/{idAbono},{idTarjeta},{tipMvtoNew}")
     fun modifyAbono(@Path("idAbono") abonoId:Int,@Path("idTarjeta") tarjetaId: Number?,@Path("tipMvtoNew") tipMvtoNew:String,
-                     @Body abonoData: AbonoModifyResponse
+                     @Body abonoData: AbonoModifyRequestData
     ): Call<AbonoSendModifyResponse>
 
     /** Eliminar abono**/
