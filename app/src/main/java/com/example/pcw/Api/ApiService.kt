@@ -50,8 +50,11 @@ interface ApiService {
     ): Call<AbonoSendModifyResponse>
 
     /** Eliminar abono**/
-    @DELETE("/api/eliminar_abono/{idAbono}")
-    fun deleteAbono(@Path("idAbono") abonoId:Int): Call<AbonoDeleteResponse>
+    @HTTP(method = "DELETE", path = "/api/eliminar_abono/{idAbono},{idTarjeta}", hasBody = true)
+   // @DELETE("/api/eliminar_abono/{idAbono},{idTarjeta}, hasBody = true")
+    fun deleteAbono(@Path("idAbono") abonoId:Int,@Path("idTarjeta") tarjetaId: Number?,
+                    @Body abonoData: AbonoRequestDeleteData
+                    ): Call<AbonoDeleteResponse>
 
 
 }

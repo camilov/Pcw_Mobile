@@ -81,3 +81,9 @@ data class AbonoRequestModifyData(
 
 
 )
+
+data class AbonoRequestDeleteData(
+
+    val tarjetaData:AbonoModifyTarjeta,
+    val movimientoData: AbonoMovementResponse
+)

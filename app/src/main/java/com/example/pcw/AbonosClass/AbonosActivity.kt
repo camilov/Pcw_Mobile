@@ -124,7 +124,7 @@ class AbonosActivity : AppCompatActivity() {
                 /** MOVIMIENTO*/
                 val movementData = AbonoMovementResponse(
                     Constantes.CREATE_ID,
-                    valorTotalD,
+                    currentValorAbono.toFloat(),
                     Constantes.CERO.toFloat(),
                     Constantes.ABONO,
                     idTarjeta!!,
@@ -159,7 +159,7 @@ class AbonosActivity : AppCompatActivity() {
             }
         }
     }
-    //////////////////////////////////////////////////////////////////////////////////VOY ACA////////////////////////////////////////////////////////////////
+
     @RequiresApi(Build.VERSION_CODES.N)
     private fun editAbono(){
 
@@ -235,12 +235,22 @@ class AbonosActivity : AppCompatActivity() {
     }
 
 
-
+    //////////////////////////////////////////////////////////////////////////////////VOY ACA////////////////////////////////////////////////////////////////
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun deleteAbono(){
 
         val currentNumCuota = binding.etNumCuotaAbonos.text.toString()
         val currentValorAbono = binding.etValorAbonoAbonos.text.toString()
+        val currentValorAbonoInt:Number=currentValorAbono.toInt()
         val currentIdAbono = binding.etIdAbono.text.toString()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val fechaActual = Date()
+        val fechaFormateada = dateFormat.format(fechaActual)
+
+        val valorTotalParcial = valorTotal?.minus(currentValorAbonoInt.toFloat())
+        val valorTotalD: Float? = valorTotalParcial?.toFloat()
+
+        valorTotal = valorTotalD
 
         if(currentNumCuota != null && currentValorAbono != null)
         {
@@ -248,7 +258,25 @@ class AbonosActivity : AppCompatActivity() {
 
                 val AbonoDeleteResponse= AbonoDeleteResponse("")
 
-                servicio.deleteAbono(currentIdAbono.toInt()).enqueue(
+
+                /** TARJETA*/
+                /** ACTUALIZACION DE TARJETA*/
+                val tarjetaData = AbonoModifyTarjeta(valorTotalD, currentNumCuota.toInt(), fechaFormateada)
+
+                /** MOVIMIENTO*/
+                val movementData = AbonoMovementResponse(
+                    Constantes.CREATE_ID,
+                    Constantes.CERO.toFloat(),
+                    currentValorAbono.toFloat(),
+                    Constantes.ANULACION_ABONO,
+                    idTarjeta!!,
+                    idCliente!!,
+                    fechaFormateada,
+                    0
+                )
+                val abonoRequestDeleteData = AbonoRequestDeleteData(tarjetaData, movementData)
+
+                servicio.deleteAbono(currentIdAbono.toInt(),idTarjeta,abonoRequestDeleteData).enqueue(
                     object: Callback<AbonoDeleteResponse> {
                         override fun onResponse(
                             call: Call<AbonoDeleteResponse>,
