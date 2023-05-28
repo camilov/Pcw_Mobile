@@ -73,7 +73,7 @@ data class AbonoRequestData(
     val tarjetaData: AbonoModifyTarjeta
 )
 
-data class AbonoModifyRequestData(
+data class AbonoRequestModifyData(
 
     val abonoData: AbonoModifyResponse,
     val tarjetaData:AbonoModifyTarjeta,
