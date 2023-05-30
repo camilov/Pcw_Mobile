@@ -1,9 +1,11 @@
 package com.example.pcw.TarjetasClass
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.pcw.AbonosClass.AbonosActivity
+import com.example.pcw.constantes.Constantes
 import com.example.pcw.databinding.ItemTarjetaOperationBinding
 import java.util.Date
 
@@ -64,11 +66,20 @@ class TarjetaOperationActivity : AppCompatActivity() {
         intent.putExtra("VALOR_TOTAL"   ,valorTotal   )
         intent.putExtra("VALOR_DEFECTO"   ,valorDefecto   )
         intent.putExtra("NUM_CUOTAS"   ,numCuotas   )
-        startActivity(intent)
+        startActivityForResult(intent,Constantes.REQUEST_ABONOS)
     }
 
     fun Float.floatToInt(): String {
         return this.toInt().toString()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == Constantes.REQUEST_ABONOS && resultCode == Activity.RESULT_OK && data != null) {
+            val valorTotalD = data.getFloatExtra("VALOR_TOTAL_D", 0f)
+            // Hacer algo con el valorTotalD devuelto desde AbonosActivity
+        }
     }
 
 
@@ -76,6 +87,8 @@ class TarjetaOperationActivity : AppCompatActivity() {
     /*private fun initUI() {
         binding.tvTarjetaOperationValorPrestado =
     }*/
+
+
 
 
 }

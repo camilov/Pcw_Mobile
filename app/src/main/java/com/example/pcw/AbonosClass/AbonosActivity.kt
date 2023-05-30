@@ -2,6 +2,8 @@ package com.example.pcw.AbonosClass
 
 //import android.R
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.os.Build
@@ -157,6 +159,11 @@ class AbonosActivity : AppCompatActivity() {
                     }
                 )
             }
+
+            val resultIntent = Intent()
+            resultIntent.putExtra("VALOR_TOTAL", valorTotalD)
+            setResult(Activity.RESULT_OK, resultIntent)
+            finish()
         }
     }
 

@@ -12,5 +12,6 @@ class Constantes {
         const val CREATE_ID = 0
         const val VALOR_PRESTADO = 0
         const val CERO = 0
+        const val REQUEST_ABONOS = 1
     }
 }
