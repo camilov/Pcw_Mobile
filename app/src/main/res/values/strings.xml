@@ -27,4 +27,8 @@
     <string name="renovar_tarjeta">¿Renovar Tarjeta?</string>
     <string name="nuevo_valor_tarjeta">Nuevo valor tarjeta</string>
     <string name="editar">Editar</string>
+    <string name="pendiente">Pendiente</string>
+    <string name="pagada">Pagada</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
 </resources>
