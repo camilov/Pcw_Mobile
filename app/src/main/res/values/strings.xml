@@ -24,4 +24,7 @@
     <string name="crear_tarjeta">Crear tarjeta</string>
     <string name="valor_prestado1">Valor prestado</string>
     <string name="valor_defecto1">Valor defecto</string>
+    <string name="renovar_tarjeta">¿Renovar Tarjeta?</string>
+    <string name="nuevo_valor_tarjeta">Nuevo valor tarjeta</string>
+    <string name="editar">Editar</string>
 </resources>

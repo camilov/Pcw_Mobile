@@ -57,6 +57,12 @@ class TarjetaOperationActivity : AppCompatActivity() {
     private fun initListerners() {
 
         binding.btnAbonos.setOnClickListener { openAbonos() }
+        binding.btnOptions.setOnClickListener{openOptions()}
+    }
+
+    private fun openOptions() {
+        val intent =  Intent(this,TarjetasOptionsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun openAbonos() {
